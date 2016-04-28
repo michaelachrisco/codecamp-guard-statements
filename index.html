@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2>Gaurd Statements</h2>
+					<p>
+						5 minutes or less on gaurd statements. Go!
+					</p>
+				</section>
+				<section>
+					<h2>Description</h2>
+					<p>
+						Like an if statement, guard executes statements based on a Boolean value of an expression. Unlike an if statement, guard statements only run if the conditions are not met. You can think of guard more like an Assert, but rather than crashing, you can gracefully exit.
+					</p>
+					-Source: ecerney via http://ericcerney.com/swift-guard-statement/
+				</section>
+				<section>
+					<h2>Show me the code!(Before)</h2>
+					<p>
+						W3schools Tutorial on if/else
+					</p>
+					<pre><code data-trim data-noescape>
+function greetUser() {
+    var greeting;
+    var time = new Date().getHours();
+    if (time < 10) {
+        greeting = "Good morning";
+    } else if (time < 20) {
+        greeting = "Good day";
+    } else {
+        greeting = "Good evening";
+    }
+    return greeting;
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Refactor</h2>
+					<pre><code data-trim data-noescape>
+function greetUser() {
+    var time = new Date().getHours();
+    if (time < 10) {
+        return "Good morning";
+    } else if (time < 20) {
+        return "Good day";
+    } else {
+        return "Good evening";
+    }
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Gaurd!</h2>
+					<pre><code data-trim data-noescape>
+function greetUser() {
+  var time = new Date().getHours();
+  if(time >= 20) return "Good evening";
+  if(time < 10) return "Good morning";
+  return "Good day";
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Not just Javascript: PHP</h2>
+
+					<pre><code data-trim data-noescape>
+namespace App\Presenters;
+use Carbon\Carbon;
+class ChangeMemberPresenter extends Presenter{
+
+  public function formatPlanDate($dateKey){
+    return $this->formatDate($this->entity[$dateKey]);
+  }
+
+  private function formatDate($date){
+    if(empty($date)) return '';
+
+    $formatteddate = new Carbon($date);
+    return $formatteddate->format('m/d/Y');
+  }
+}
+					</code></pre>
+					<p>
+					</p>
+				</section>
+				<section>
+					<h2>Not just Javascript: Ruby</h2>
+					<pre><code data-trim data-noescape>
+module API
+  class Client
+    ...
+    def process_payload(payload, &block)
+      return [] if payload.empty?
+      block.call
+    end
+  end
+end
+					</code></pre>
+					<p>
+					</p>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
